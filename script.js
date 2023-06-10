@@ -1,36 +1,28 @@
-const audioPaths = {
-  65: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // A
-  83: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // S
-  68: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // D
-  70: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // F
-  71: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // G
-  72: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // H
-  74: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // J
-  75: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // K
-  76: 'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3', // L
-};
-
-// Function to play the sound based on the key press
-function playSound(event) {
+document.addEventListener('keydown', function(event) {
   const key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
-
-  if (key) {
-    // Get the audio element
-    const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
-    
-    if (audio) {
-      // Play sound logic here
-      audio.currentTime = 0;
-      audio.play();
+  const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
   
-      // Add playing effect
-      key.classList.add('playing');
-      setTimeout(() => {
-        key.classList.remove('playing');
-      }, 100);
-    }
-  }
-}
+  if (!key || !audio) return;
+  
+  audio.currentTime = 0;
+  audio.play();
+  
+  key.classList.add('playing');
+});
 
-// Attach event listener
-window.addEventListener('keydown', playSound);
+document.addEventListener('keyup', function(event) {
+  const key = document.querySelector(`key[data-key="${event.keyCode}"]`);
+  
+  if (!key) return;
+  
+  key.classList.remove('playing');
+});
+
+const keys = Array.from(document.querySelectorAll('.key'));
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+function removeTransition(event) {
+  if (event.propertyName !== 'transform') return;
+  
+  this.classList.remove('playing');
+}
