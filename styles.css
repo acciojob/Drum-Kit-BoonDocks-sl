@@ -1,26 +1,48 @@
-/*  your css code here. If applicable */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #222;
+}
+
 .keys {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
 }
 
 .key {
-  display: inline-block;
-  padding: 10px;
-  margin: 10px;
-  background-color: lightgray;
-  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0.4rem solid #000;
+  border-radius: 0.4rem;
+  margin: 0.5rem;
+  width: 8rem;
+  height: 8rem;
+  background-color: #fff;
+  transition: all 0.1s;
+  font-size: 2rem;
   cursor: pointer;
-  font-size: 24px;
-  text-align: center;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
-
-
-.key:hover {
-  background-color: gray;
+.key.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
 }
 
+kbd {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sound-name {
+  font-size: 1rem;
+  opacity: 0.7;
+}
